@@ -1,0 +1,45 @@
+#
+#       C101 configure data     07-01-95
+#
+#       Keywords:
+#       ------
+#       BaseSeg         dual port ram Base address_Segment
+#                       in DOS/WINDOWS envirement, only support
+#                       under 1M address
+#       IRQ             irq_number
+#       Speed           speed
+#       PktSize         max_packet_size, now is fixed at 1024 byte
+#       PktCnt          extra receive packet count, will alloc mem
+#                       from
+#       TxCSource       transmit clock source
+#                       can select: TxCIn, BG, RxCIn
+#                       TxCIn: transmit clock source is use TxCIn pin
+#                       **when setup this, the TxC dir jumper must
+#                       set to in
+#                       RxCIn: transmit clock source is use RxCIn pin
+#                       BG: transmit clock source is use internal baud
+#                       rate generator
+#       RxCSource       receive clock source
+#                       include RxCIn, BG
+#       LoopMode        Setting local loop back mode on/off
+#
+#       Example:
+#       -------
+#               BaseSeg         0xC800
+#               Speed           9600
+#               Speed           128K
+#               PktSize         1024
+#               PktCnt          512
+#               TxCSource       TxCIn
+#               TxCSource       BG
+#               RxCSource       RxCIn
+#
+BaseSeg         0xC800
+IRQ             10
+Speed           4096K
+PktSize         1024
+PktCnt          20
+TxCSource       BG
+RxCSource       BG
+LoopMode        Off
+

@@ -1,0 +1,144 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: Mxsync - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\WINDOWS\TEMP\RSP8373.TMP" with contents
+[
+/nologo /MLd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"Debug/Mxsync.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"C:\sync\Linux\Mxsync.c"
+]
+Creating command line "cl.exe @C:\WINDOWS\TEMP\RSP8373.TMP" 
+Creating temporary file "C:\WINDOWS\TEMP\RSP8374.TMP" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:yes /pdb:"Debug/Mxsync.pdb" /debug /machine:I386 /out:"Debug/Mxsync.exe" /pdbtype:sept 
+.\Debug\Mxsync.obj
+]
+Creating command line "link.exe @C:\WINDOWS\TEMP\RSP8374.TMP"
+<h3>Output Window</h3>
+Compiling...
+Mxsync.c
+c:\sync\linux\hd64570.h(279) : error C2061: syntax error : identifier 'u16'
+c:\sync\linux\hd64570.h(280) : error C2061: syntax error : identifier 'bp'
+c:\sync\linux\hd64570.h(280) : error C2059: syntax error : ';'
+c:\sync\linux\hd64570.h(281) : error C2061: syntax error : identifier 'dl'
+c:\sync\linux\hd64570.h(281) : error C2059: syntax error : ';'
+c:\sync\linux\hd64570.h(282) : error C2061: syntax error : identifier 'st'
+c:\sync\linux\hd64570.h(282) : error C2059: syntax error : ';'
+c:\sync\linux\hd64570.h(283) : error C2061: syntax error : identifier 'reserved'
+c:\sync\linux\hd64570.h(283) : error C2059: syntax error : ';'
+c:\sync\linux\hd64570.h(283) : error C2059: syntax error : '['
+c:\sync\linux\hd64570.h(284) : error C2061: syntax error : identifier 'bcp'
+c:\sync\linux\hd64570.h(284) : error C2059: syntax error : ';'
+c:\sync\linux\hd64570.h(285) : error C2061: syntax error : identifier 'reserved2'
+c:\sync\linux\hd64570.h(285) : error C2059: syntax error : ';'
+c:\sync\linux\hd64570.h(286) : error C2059: syntax error : '}'
+c:\sync\linux\hd64570.h(382) : error C2061: syntax error : identifier 'ulong'
+c:\sync\linux\hd64570.h(383) : error C2061: syntax error : identifier 'dataaddr'
+c:\sync\linux\hd64570.h(383) : error C2059: syntax error : ';'
+c:\sync\linux\hd64570.h(384) : error C2061: syntax error : identifier 'pagectrl'
+c:\sync\linux\hd64570.h(384) : error C2059: syntax error : ';'
+c:\sync\linux\hd64570.h(385) : error C2061: syntax error : identifier 'usartaddr'
+c:\sync\linux\hd64570.h(385) : error C2059: syntax error : ';'
+c:\sync\linux\hd64570.h(386) : error C2061: syntax error : identifier 'intackaddr'
+c:\sync\linux\hd64570.h(386) : error C2059: syntax error : ';'
+c:\sync\linux\hd64570.h(387) : error C2061: syntax error : identifier 'rxhead'
+c:\sync\linux\hd64570.h(387) : error C2059: syntax error : ';'
+c:\sync\linux\hd64570.h(387) : error C2059: syntax error : ','
+c:\sync\linux\hd64570.h(393) : error C2079: 'rxqueue' uses undefined struct 'tq_struct'
+c:\sync\linux\hd64570.h(395) : error C2079: 'stats' uses undefined struct 'net_device_stats'
+c:\sync\linux\hd64570.h(399) : error C2061: syntax error : identifier 'mtu'
+c:\sync\linux\hd64570.h(399) : error C2059: syntax error : ';'
+c:\sync\linux\hd64570.h(400) : error C2061: syntax error : identifier 'txclock'
+c:\sync\linux\hd64570.h(400) : error C2059: syntax error : ';'
+c:\sync\linux\hd64570.h(401) : error C2061: syntax error : identifier 'irq'
+c:\sync\linux\hd64570.h(401) : error C2059: syntax error : ';'
+c:\sync\linux\hd64570.h(402) : error C2061: syntax error : identifier 'txflag'
+c:\sync\linux\hd64570.h(402) : error C2059: syntax error : ';'
+c:\sync\linux\hd64570.h(403) : error C2059: syntax error : '}'
+c:\sync\linux\mxsync.c(31) : error C2065: 'ulong' : undeclared identifier
+c:\sync\linux\mxsync.c(31) : error C2146: syntax error : missing ';' before identifier 'usartaddr'
+c:\sync\linux\mxsync.c(31) : error C2065: 'usartaddr' : undeclared identifier
+c:\sync\linux\mxsync.c(32) : error C2065: 'u8' : undeclared identifier
+c:\sync\linux\mxsync.c(32) : error C2146: syntax error : missing ';' before identifier 'ch'
+c:\sync\linux\mxsync.c(32) : error C2065: 'ch' : undeclared identifier
+c:\sync\linux\mxsync.c(33) : error C2065: 'u16' : undeclared identifier
+c:\sync\linux\mxsync.c(33) : error C2146: syntax error : missing ';' before identifier 'cda'
+c:\sync\linux\mxsync.c(33) : error C2065: 'cda' : undeclared identifier
+c:\sync\linux\mxsync.c(33) : error C2065: 'eda' : undeclared identifier
+c:\sync\linux\mxsync.c(35) : error C2037: left of 'usartaddr' specifies undefined struct/union 'c101_dev'
+c:\sync\linux\mxsync.c(36) : warning C4013: 'readb' undefined; assuming extern returning int
+c:\sync\linux\mxsync.c(37) : warning C4013: 'writeb' undefined; assuming extern returning int
+c:\sync\linux\mxsync.c(46) : error C2037: left of 'netdev' specifies undefined struct/union 'c101_dev'
+c:\sync\linux\mxsync.c(47) : error C2037: left of 'txflag' specifies undefined struct/union 'c101_dev'
+c:\sync\linux\mxsync.c(57) : error C2146: syntax error : missing ';' before identifier 'usartaddr'
+c:\sync\linux\mxsync.c(59) : error C2037: left of 'usartaddr' specifies undefined struct/union 'c101_dev'
+c:\sync\linux\mxsync.c(68) : error C2146: syntax error : missing ';' before identifier 'usartaddr'
+c:\sync\linux\mxsync.c(69) : error C2146: syntax error : missing ';' before identifier 'cda'
+c:\sync\linux\mxsync.c(71) : error C2037: left of 'usartaddr' specifies undefined struct/union 'c101_dev'
+c:\sync\linux\mxsync.c(74) : error C2037: left of 'rxtail' specifies undefined struct/union 'c101_dev'
+c:\sync\linux\mxsync.c(76) : warning C4013: 'queue_task' undefined; assuming extern returning int
+c:\sync\linux\mxsync.c(76) : error C2037: left of 'rxqueue' specifies undefined struct/union 'c101_dev'
+c:\sync\linux\mxsync.c(76) : error C2065: 'tq_immediate' : undeclared identifier
+c:\sync\linux\mxsync.c(77) : warning C4013: 'mark_bh' undefined; assuming extern returning int
+c:\sync\linux\mxsync.c(77) : error C2065: 'IMMEDIATE_BH' : undeclared identifier
+c:\sync\linux\mxsync.c(84) : error C2146: syntax error : missing ';' before identifier 'head'
+c:\sync\linux\mxsync.c(84) : error C2065: 'head' : undeclared identifier
+c:\sync\linux\mxsync.c(84) : error C2065: 'tail' : undeclared identifier
+c:\sync\linux\mxsync.c(84) : error C2065: 'tmphead' : undeclared identifier
+c:\sync\linux\mxsync.c(84) : error C2065: 'len' : undeclared identifier
+c:\sync\linux\mxsync.c(84) : error C2065: 'dl' : undeclared identifier
+c:\sync\linux\mxsync.c(84) : error C2065: 'bcp' : undeclared identifier
+c:\sync\linux\mxsync.c(85) : error C2146: syntax error : missing ';' before identifier 'dcp'
+c:\sync\linux\mxsync.c(85) : error C2065: 'dcp' : undeclared identifier
+c:\sync\linux\mxsync.c(85) : error C2065: 'dataaddr' : undeclared identifier
+c:\sync\linux\mxsync.c(85) : error C2065: 'pagectrl' : undeclared identifier
+c:\sync\linux\mxsync.c(85) : error C2065: 'baseaddr' : undeclared identifier
+c:\sync\linux\mxsync.c(85) : error C2065: 'ul' : undeclared identifier
+c:\sync\linux\mxsync.c(86) : error C2065: 'data' : undeclared identifier
+c:\sync\linux\mxsync.c(86) : error C2065: 'page' : undeclared identifier
+c:\sync\linux\mxsync.c(87) : error C2065: 'u32' : undeclared identifier
+c:\sync\linux\mxsync.c(87) : error C2146: syntax error : missing ';' before identifier 'bp'
+c:\sync\linux\mxsync.c(87) : error C2065: 'bp' : undeclared identifier
+c:\sync\linux\mxsync.c(88) : error C2143: syntax error : missing ';' before 'type'
+c:\sync\linux\mxsync.c(92) : error C2037: left of 'baseaddr' specifies undefined struct/union 'c101_dev'
+c:\sync\linux\mxsync.c(93) : error C2037: left of 'pagectrl' specifies undefined struct/union 'c101_dev'
+c:\sync\linux\mxsync.c(94) : error C2037: left of 'usartaddr' specifies undefined struct/union 'c101_dev'
+c:\sync\linux\mxsync.c(95) : error C2037: left of 'dataaddr' specifies undefined struct/union 'c101_dev'
+c:\sync\linux\mxsync.c(96) : error C2037: left of 'rxhead' specifies undefined struct/union 'c101_dev'
+c:\sync\linux\mxsync.c(97) : error C2037: left of 'rxtail' specifies undefined struct/union 'c101_dev'
+c:\sync\linux\mxsync.c(104) : warning C4013: 'readw' undefined; assuming extern returning int
+c:\sync\linux\mxsync.c(112) : warning C4013: 'dev_alloc_skb' undefined; assuming extern returning int
+c:\sync\linux\mxsync.c(112) : warning C4047: '=' : 'struct sk_buff *' differs in levels of indirection from 'int '
+c:\sync\linux\mxsync.c(113) : error C2065: 'NULL' : undeclared identifier
+c:\sync\linux\mxsync.c(113) : warning C4047: '==' : 'struct sk_buff *' differs in levels of indirection from 'int '
+c:\sync\linux\mxsync.c(114) : error C2065: 'i' : undeclared identifier
+c:\sync\linux\mxsync.c(117) : warning C4013: 'readl' undefined; assuming extern returning int
+c:\sync\linux\mxsync.c(123) : error C2065: 'j' : undeclared identifier
+c:\sync\linux\mxsync.c(132) : warning C4013: 'writew' undefined; assuming extern returning int
+c:\sync\linux\mxsync.c(138) : error C2037: left of 'stats' specifies undefined struct/union 'c101_dev'
+c:\sync\linux\mxsync.c(141) : error C2037: left of 'data' specifies undefined struct/union 'sk_buff'
+c:\sync\linux\mxsync.c(157) : error C2100: illegal indirection
+c:\sync\linux\mxsync.c(157) : error C2106: '=' : left operand must be l-value
+c:\sync\linux\mxsync.c(165) : error C2037: left of 'len' specifies undefined struct/union 'sk_buff'
+c:\sync\linux\mxsync.c(166) : error C2037: left of 'rx_function' specifies undefined struct/union 'c101_dev'
+c:\sync\linux\mxsync.c(167) : error C2037: left of 'stats' specifies undefined struct/union 'c101_dev'
+c:\sync\linux\mxsync.c(168) : error C2037: left of 'stats' specifies undefined struct/union 'c101_dev'
+c:\sync\linux\mxsync.c(174) : error C2037: left of 'rxhead' specifies undefined struct/union 'c101_dev'
+c:\sync\linux\mxsync.c(184) : error C2146: syntax error : missing ';' before identifier 'usartaddr'
+c:\sync\linux\mxsync.c(184) : error C2065: 'intackaddr' : undeclared identifier
+c:\sync\linux\mxsync.c(189) : error C2037: left of 'irq' specifies undefined struct/union 'c101_dev'
+c:\sync\linux\mxsync.c(193) : error C2037: left of 'usartaddr' specifies undefined struct/union 'c101_dev'
+c:\sync\linux\mxsync.c(193) : fatal error C1003: error count exceeds 100; stopping compilation
+Error executing cl.exe.
+
+
+
+<h3>Results</h3>
+Mxsync.exe - 102 error(s), 10 warning(s)
+</pre>
+</body>
+</html>

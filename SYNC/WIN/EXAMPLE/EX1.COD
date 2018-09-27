@@ -1,0 +1,913 @@
+; File c:\bbvav1~1.0\sync\win\example\ex1.c
+; /****************************************************************************/
+; /*									    */
+; /*  PROGRAM: Example.c							    */
+; /*									    */
+; /*  PURPOSE: Demonstrates how to use MOXA serial I/O cards under MS Windows */
+; /*	     Written by Microsoft C 6.0 				    */
+; /****************************************************************************/
+; 
+; #include <windows.h>
+; #include "ex1.h"
+; #include "../driver/msa.h"
+; 
+; void	test1(HWND hWnd);
+; void	test2();
+; void	GateWay();
+; void	GateWayLoop();
+; 
+; HANDLE hInst;
+; 
+; 	HDC	hDC;
+; 	NPTTYINFO  npTTYInfo ;
+; 	DCB dcb;
+;     int err;
+;     char  szTemp[ TXQUEUE ] ;
+; 	HFILE hfTempFile;
+; 	char szBuf[144];
+; 
+; 	/* Create a temporary file. */
+; 
+; 	//GetTempFileName(0, "tst", 0, szBuf);
+; 
+; 	
+; 
+; int PASCAL WinMain(HANDLE hInstance, HANDLE hPrevInstance,
+; 	LPSTR lpCmdLine, int nCmdShow)
+; {
+; Line 36
+; nCmdShow = 0006
+; lpCmdLine = 0008
+; hPrevInstance = 000c
+; hInstance = 000e
+					WinMain:
+	*** 000000	55 			push	bp
+	*** 000001	8b ec 			mov	bp,sp
+	*** 000003	b8 00 00 		mov	ax,OFFSET L03418
+	*** 000006	9a 00 00 00 00 		call	FAR PTR __aFchkstk
+	*** 00000b	56 			push	si
+	*** 00000c	57 			push	di
+; bMsgAvail = fffc
+; msg = ffea
+;     MSG msg;
+; Line 37
+;     BOOL bMsgAvail;
+; Line 38
+; 
+;     if (!hPrevInstance)
+; Line 40
+	*** 00000d	83 7e 0c 00 		cmp	WORD PTR 12[bp],OFFSET 0
+	*** 000011	74 03 e9 00 00 		jne	L03323
+; 	if (!InitApplication(hInstance))
+; Line 41
+	*** 000016	ff 76 0e 		push	WORD PTR 14[bp]
+	*** 000019	9a 00 00 00 00 		call	FAR PTR _InitApplication
+	*** 00001e	83 c4 02 		add	sp,OFFSET 2
+	*** 000021	3d 00 00 		cmp	ax,OFFSET 0
+	*** 000024	74 03 e9 00 00 		jne	L03324
+; 	    return (FALSE);
+; Line 42
+	*** 000029	b8 00 00 		mov	ax,OFFSET 0
+	*** 00002c	e9 00 00 		jmp	L03320
+;     if (!InitInstance(hInstance, nCmdShow))
+; Line 43
+					L03324:
+					L03323:
+	*** 00002f	ff 76 06 		push	WORD PTR 6[bp]
+	*** 000032	ff 76 0e 		push	WORD PTR 14[bp]
+	*** 000035	9a 00 00 00 00 		call	FAR PTR _InitInstance
+	*** 00003a	83 c4 04 		add	sp,OFFSET 4
+	*** 00003d	3d 00 00 		cmp	ax,OFFSET 0
+	*** 000040	74 03 e9 00 00 		jne	L03325
+; 		return (FALSE);
+; Line 44
+	*** 000045	b8 00 00 		mov	ax,OFFSET 0
+	*** 000048	e9 00 00 		jmp	L03320
+; 	
+;     while (GetMessage(&msg, NULL, NULL, NULL)) {
+; Line 46
+					L03325:
+					L03327:
+	*** 00004b	8d 46 ea 		lea	ax,WORD PTR -22[bp]
+	*** 00004e	8c d2 			mov	dx,ss
+	*** 000050	52 			push	dx
+	*** 000051	50 			push	ax
+	*** 000052	6a 00 			push	OFFSET 0
+	*** 000054	6a 00 			push	OFFSET 0
+	*** 000056	6a 00 			push	OFFSET 0
+	*** 000058	9a 00 00 00 00 		call	FAR PTR GetMessage
+	*** 00005d	3d 00 00 		cmp	ax,OFFSET 0
+	*** 000060	75 03 e9 00 00 		je	L03328
+; 		TranslateMessage((LPMSG)&msg);
+; Line 47
+	*** 000065	8d 46 ea 		lea	ax,WORD PTR -22[bp]
+	*** 000068	8c d2 			mov	dx,ss
+	*** 00006a	52 			push	dx
+	*** 00006b	50 			push	ax
+	*** 00006c	9a 00 00 00 00 		call	FAR PTR TranslateMessage
+; 		DispatchMessage((LPMSG)&msg);
+; Line 48
+	*** 000071	8d 46 ea 		lea	ax,WORD PTR -22[bp]
+	*** 000074	8c d2 			mov	dx,ss
+	*** 000076	52 			push	dx
+	*** 000077	50 			push	ax
+	*** 000078	9a 00 00 00 00 		call	FAR PTR DispatchMessage
+; 	    }
+; Line 49
+; Line 49
+	*** 00007d	e9 cb ff 		jmp	L03327
+					L03328:
+;     return (msg.wParam);
+; Line 50
+	*** 000080	8b 46 ee 		mov	ax,WORD PTR -18[bp]
+	*** 000083	e9 00 00 		jmp	L03320
+;     	
+; }
+; Line 52
+; Line 52
+					L03320:
+	*** 000086	5f 			pop	di
+	*** 000087	5e 			pop	si
+	*** 000088	c9 			leave
+	*** 000089	ca 0a 00 		ret	OFFSET 10
+; Local Size: 22
+; 
+; BOOL InitApplication(HANDLE hInstance)
+; {
+; Line 55
+; hInstance = 0006
+					_InitApplication:
+	*** 00008c	55 			push	bp
+	*** 00008d	8b ec 			mov	bp,sp
+	*** 00008f	b8 00 00 		mov	ax,OFFSET L03420
+	*** 000092	9a 00 00 00 00 		call	FAR PTR __aFchkstk
+	*** 000097	56 			push	si
+	*** 000098	57 			push	di
+; wc = ffe4
+;     WNDCLASS wc;
+; Line 56
+; 
+;     wc.style = NULL;
+; Line 58
+	*** 000099	c7 46 e4 00 00 		mov	WORD PTR -28[bp],OFFSET 0
+;     wc.lpfnWndProc = MainWndProc;
+; Line 59
+	*** 00009e	c7 46 e6 00 00 		mov	WORD PTR -26[bp],OFFSET MainWndProc
+	*** 0000a3	c7 46 e8 00 00 		mov	WORD PTR -24[bp],SEG MainWndProc
+;     wc.cbClsExtra = 0;
+; Line 60
+	*** 0000a8	c7 46 ea 00 00 		mov	WORD PTR -22[bp],OFFSET 0
+;     wc.cbWndExtra = 0;
+; Line 61
+	*** 0000ad	c7 46 ec 00 00 		mov	WORD PTR -20[bp],OFFSET 0
+;     wc.hInstance = hInstance;
+; Line 62
+	*** 0000b2	8b 46 06 		mov	ax,WORD PTR 6[bp]
+	*** 0000b5	89 46 ee 		mov	WORD PTR -18[bp],ax
+;     wc.hIcon = LoadIcon(NULL, IDI_APPLICATION);
+; Line 63
+	*** 0000b8	6a 00 			push	OFFSET 0
+	*** 0000ba	6a 00 			push	OFFSET 0
+	*** 0000bc	68 00 7f 		push	OFFSET 32512
+	*** 0000bf	9a 00 00 00 00 		call	FAR PTR LoadIcon
+	*** 0000c4	89 46 f0 		mov	WORD PTR -16[bp],ax
+;     wc.hCursor = LoadCursor(NULL, IDC_ARROW);
+; Line 64
+	*** 0000c7	6a 00 			push	OFFSET 0
+	*** 0000c9	6a 00 			push	OFFSET 0
+	*** 0000cb	68 00 7f 		push	OFFSET 32512
+	*** 0000ce	9a 00 00 00 00 		call	FAR PTR LoadCursor
+	*** 0000d3	89 46 f2 		mov	WORD PTR -14[bp],ax
+;     wc.hbrBackground = GetStockObject(WHITE_BRUSH);
+; Line 65
+	*** 0000d6	6a 00 			push	OFFSET 0
+	*** 0000d8	9a 00 00 00 00 		call	FAR PTR GetStockObject
+	*** 0000dd	89 46 f4 		mov	WORD PTR -12[bp],ax
+;     wc.lpszMenuName =  "SDLC";
+; Line 66
+	*** 0000e0	b8 00 00 		mov	ax,OFFSET L03334
+	*** 0000e3	8c da 			mov	dx,ds
+	*** 0000e5	89 46 f6 		mov	WORD PTR -10[bp],ax
+	*** 0000e8	89 56 f8 		mov	WORD PTR -8[bp],dx
+;     wc.lpszClassName = "SDLCClass";
+; Line 67
+	*** 0000eb	b8 00 00 		mov	ax,OFFSET L03335
+	*** 0000ee	8c da 			mov	dx,ds
+	*** 0000f0	89 46 fa 		mov	WORD PTR -6[bp],ax
+	*** 0000f3	89 56 fc 		mov	WORD PTR -4[bp],dx
+;     return (RegisterClass(&wc));
+; Line 68
+	*** 0000f6	8d 46 e4 		lea	ax,WORD PTR -28[bp]
+	*** 0000f9	8c d2 			mov	dx,ss
+	*** 0000fb	52 			push	dx
+	*** 0000fc	50 			push	ax
+	*** 0000fd	9a 00 00 00 00 		call	FAR PTR RegisterClass
+	*** 000102	e9 00 00 		jmp	L03332
+; }
+; Line 69
+; Line 69
+					L03332:
+	*** 000105	5f 			pop	di
+	*** 000106	5e 			pop	si
+	*** 000107	c9 			leave
+	*** 000108	cb 			ret	OFFSET 0
+; Local Size: 28
+; 
+; BOOL InitInstance(HANDLE hInstance, int nCmdShow)
+; {
+; Line 72
+; hInstance = 0006
+; nCmdShow = 0008
+					_InitInstance:
+	*** 00010a	55 			push	bp
+	*** 00010b	8b ec 			mov	bp,sp
+	*** 00010d	b8 00 00 		mov	ax,OFFSET L03421
+	*** 000110	9a 00 00 00 00 		call	FAR PTR __aFchkstk
+	*** 000115	56 			push	si
+	*** 000116	57 			push	di
+; i = fffc
+; tmp = ff98
+; hWnd = ff96
+;     HWND hWnd;
+; Line 73
+;     int i;
+; Line 74
+;     char tmp[100];
+; Line 75
+; 
+;     hInst = hInstance;
+; Line 77
+	*** 000117	8b 46 06 		mov	ax,WORD PTR 6[bp]
+	*** 00011a	a3 00 00 		mov	WORD PTR _hInst,ax
+; 
+;     hWnd = CreateWindow(
+; Line 79
+; 	"SDLCClass",
+; Line 80
+; 	"Gateway from SDLC to Serial Port",
+; Line 81
+; 	WS_SYSMENU ,
+; Line 82
+; 	CW_USEDEFAULT,
+; Line 83
+; 	CW_USEDEFAULT,
+; Line 84
+; 	CW_USEDEFAULT,
+; Line 85
+; 	CW_USEDEFAULT,
+; Line 86
+; 	NULL,
+; Line 87
+; 	NULL,
+; Line 88
+; 	hInstance,
+; Line 89
+; 	NULL
+; Line 90
+;     );
+; Line 91
+	*** 00011d	b8 00 00 		mov	ax,OFFSET L03345
+	*** 000120	8c da 			mov	dx,ds
+	*** 000122	52 			push	dx
+	*** 000123	50 			push	ax
+	*** 000124	b8 00 00 		mov	ax,OFFSET L03344
+	*** 000127	8c da 			mov	dx,ds
+	*** 000129	52 			push	dx
+	*** 00012a	50 			push	ax
+	*** 00012b	6a 08 			push	OFFSET 8
+	*** 00012d	6a 00 			push	OFFSET 0
+	*** 00012f	68 00 80 		push	OFFSET -32768
+	*** 000132	68 00 80 		push	OFFSET -32768
+	*** 000135	68 00 80 		push	OFFSET -32768
+	*** 000138	68 00 80 		push	OFFSET -32768
+	*** 00013b	6a 00 			push	OFFSET 0
+	*** 00013d	6a 00 			push	OFFSET 0
+	*** 00013f	ff 76 06 		push	WORD PTR 6[bp]
+	*** 000142	6a 00 			push	OFFSET 0
+	*** 000144	6a 00 			push	OFFSET 0
+	*** 000146	9a 00 00 00 00 		call	FAR PTR CreateWindow
+	*** 00014b	89 46 96 		mov	WORD PTR -106[bp],ax
+;     if (!hWnd)
+; Line 92
+	*** 00014e	83 7e 96 00 		cmp	WORD PTR -106[bp],OFFSET 0
+	*** 000152	74 03 e9 00 00 		jne	L03346
+; 	return (FALSE);
+; Line 93
+	*** 000157	b8 00 00 		mov	ax,OFFSET 0
+	*** 00015a	e9 00 00 		jmp	L03340
+;     
+;     ShowWindow(hWnd, nCmdShow);
+; Line 95
+					L03346:
+	*** 00015d	ff 76 96 		push	WORD PTR -106[bp]
+	*** 000160	ff 76 08 		push	WORD PTR 8[bp]
+	*** 000163	9a 00 00 00 00 		call	FAR PTR ShowWindow
+;     UpdateWindow(hWnd);
+; Line 96
+	*** 000168	ff 76 96 		push	WORD PTR -106[bp]
+	*** 00016b	9a 00 00 00 00 		call	FAR PTR UpdateWindow
+; 
+; /*    if ((i = MSAInit()) <= 0) { 				//**
+; 	wsprintf(tmp, "MOXA INIT error %d", i);                 //**
+; 	MessageBox(hWnd, tmp, NULL, MB_OK | MB_ICONHAND);	//**
+; 	return(FALSE);						//**
+;     }								//**
+;     
+;        if ((COMDEV( npTTYInfo ) = OpenComm( "COM5", RXQUEUE, TXQUEUE )) < 0)
+;  	{ 
+;  	
+; 	   MessageBox(hWnd,"Error:OpenComm","",MB_OK);
+;        return ( FALSE ) ;
+;      }
+;       
+;    err = BuildCommDCB("COM5:19200,n,8,1", &dcb);
+;    if (err < 0) {
+;     	MessageBox(hWnd, "Ok", "BuildCommDCB", MB_OK); 
+;      	return 0;
+; 		}              
+; 	err = SetCommState(&dcb);
+; 	if (err < 0) {
+;     	MessageBox(hWnd, "Ok", "SetCommState", MB_OK); 
+;     	return 0;
+; 	}
+;     
+;     strcpy(szBuf, "c:\\SDLC.TXT");
+; 	hfTempFile = _lcreat(szBuf, 0);
+; 
+; 	if (hfTempFile == HFILE_ERROR) {
+;     	                                               
+; 		MessageBox(hWnd, "Ok", "OpenFile", MB_OK); 
+; 		return ( FALSE);    	                                               
+; 	}
+; 	         
+;          
+;     SendMessage( hWnd, WM_COMMAND, (WPARAM) IDM_T1, 	NULL ) ;
+; */
+;   
+;   
+;   
+;     test2(hWnd);
+; Line 137
+	*** 000170	ff 76 96 		push	WORD PTR -106[bp]
+	*** 000173	9a 00 00 00 00 		call	FAR PTR _test2
+	*** 000178	83 c4 02 		add	sp,OFFSET 2
+;   
+;     return (TRUE);
+; Line 139
+	*** 00017b	b8 01 00 		mov	ax,OFFSET 1
+	*** 00017e	e9 00 00 		jmp	L03340
+; }
+; Line 140
+; Line 140
+					L03340:
+	*** 000181	5f 			pop	di
+	*** 000182	5e 			pop	si
+	*** 000183	c9 			leave
+	*** 000184	cb 			ret	OFFSET 0
+; Local Size: 106
+; 
+; long FAR PASCAL MainWndProc(HWND hWnd, unsigned message,
+; 	WORD wParam, LONG lParam)
+; {
+; Line 144
+; lParam = 0006
+; wParam = 000a
+; message = 000c
+; hWnd = 000e
+					MainWndProc:
+	*** 000186	55 			push	bp
+	*** 000187	8b ec 			mov	bp,sp
+	*** 000189	b8 00 00 		mov	ax,OFFSET L03422
+	*** 00018c	9a 00 00 00 00 		call	FAR PTR __aFchkstk
+	*** 000191	56 			push	si
+	*** 000192	57 			push	di
+; hMenu = fffc
+; lpProcAbout = fff8
+; ps = ffd8
+;     FARPROC lpProcAbout;
+; Line 145
+;     HMENU   hMenu;
+; Line 146
+;     PAINTSTRUCT ps;
+; Line 147
+; 
+;     switch (message) {
+; Line 149
+	*** 000193	8b 46 0c 		mov	ax,WORD PTR 12[bp]
+	*** 000196	e9 00 00 		jmp	L03359
+; 	
+; 	//case WM_CREATE:
+; 		
+; 	//	GateWayLoop(hWnd);
+; 	//	break;    
+; 	
+; 	case WM_CHAR:
+; Line 156
+					L03363:
+; 		
+; 		GateWay(wParam);
+; Line 158
+	*** 000199	ff 76 0a 		push	WORD PTR 10[bp]
+	*** 00019c	9a 00 00 00 00 		call	FAR PTR _GateWay
+	*** 0001a1	83 c4 02 		add	sp,OFFSET 2
+; 		break;
+; Line 159
+	*** 0001a4	e9 00 00 		jmp	L03360
+; 		
+; 	
+; 	case WM_COMMAND:
+; Line 162
+					L03364:
+; 	    switch (wParam) {
+; Line 163
+	*** 0001a7	8b 46 0a 		mov	ax,WORD PTR 10[bp]
+	*** 0001aa	e9 00 00 		jmp	L03365
+; 	    
+; 		//case IDM_T1:			Test1(hWnd);	break;
+; 		
+; 		default:		/* Lets Windows process it	 */
+; Line 167
+					L03369:
+; 		    return (DefWindowProc(hWnd, message, wParam, lParam));
+; Line 168
+	*** 0001ad	ff 76 0e 		push	WORD PTR 14[bp]
+	*** 0001b0	ff 76 0c 		push	WORD PTR 12[bp]
+	*** 0001b3	ff 76 0a 		push	WORD PTR 10[bp]
+	*** 0001b6	ff 76 08 		push	WORD PTR 8[bp]
+	*** 0001b9	ff 76 06 		push	WORD PTR 6[bp]
+	*** 0001bc	9a 00 00 00 00 		call	FAR PTR DefWindowProc
+	*** 0001c1	e9 00 00 		jmp	L03355
+; 	    }
+; Line 169
+; Line 169
+	*** 0001c4	e9 00 00 		jmp	L03366
+					L03365:
+	*** 0001c7	e9 e3 ff 		jmp	L03369
+					L03366:
+; 	    break;
+; Line 170
+	*** 0001ca	e9 00 00 		jmp	L03360
+; 	case WM_DESTROY:
+; Line 171
+					L03370:
+; 	    PostQuitMessage(0);
+; Line 172
+	*** 0001cd	6a 00 			push	OFFSET 0
+	*** 0001cf	9a 00 00 00 00 		call	FAR PTR PostQuitMessage
+; 	    MSAEnd();
+; Line 173
+	*** 0001d4	9a 00 00 00 00 		call	FAR PTR MSAEnd
+; 	    CloseComm( COMDEV( npTTYInfo ) ) ;
+; Line 174
+	*** 0001d9	8b 1e 00 00 		mov	bx,WORD PTR _npTTYInfo
+	*** 0001dd	ff 37 			push	WORD PTR [bx]
+	*** 0001df	9a 00 00 00 00 		call	FAR PTR CloseComm
+; 	    _lclose(hfTempFile);
+; Line 175
+	*** 0001e4	ff 36 00 00 		push	WORD PTR _hfTempFile
+	*** 0001e8	9a 00 00 00 00 		call	FAR PTR _lclose
+; 	    break;
+; Line 176
+	*** 0001ed	e9 00 00 		jmp	L03360
+; 	    
+; 	default:
+; Line 178
+					L03371:
+; 	    return (DefWindowProc(hWnd, message, wParam, lParam));
+; Line 179
+	*** 0001f0	ff 76 0e 		push	WORD PTR 14[bp]
+	*** 0001f3	ff 76 0c 		push	WORD PTR 12[bp]
+	*** 0001f6	ff 76 0a 		push	WORD PTR 10[bp]
+	*** 0001f9	ff 76 08 		push	WORD PTR 8[bp]
+	*** 0001fc	ff 76 06 		push	WORD PTR 6[bp]
+	*** 0001ff	9a 00 00 00 00 		call	FAR PTR DefWindowProc
+	*** 000204	e9 00 00 		jmp	L03355
+;     }
+; Line 180
+; Line 180
+	*** 000207	e9 00 00 		jmp	L03360
+					L03359:
+	*** 00020a	3d 02 00 		cmp	ax,OFFSET 2
+	*** 00020d	75 03 e9 bb ff 		je	L03370
+	*** 000212	3d 02 01 		cmp	ax,OFFSET 258
+	*** 000215	75 03 e9 7f ff 		je	L03363
+	*** 00021a	3d 11 01 		cmp	ax,OFFSET 273
+	*** 00021d	75 03 e9 85 ff 		je	L03364
+	*** 000222	e9 cb ff 		jmp	L03371
+					L03360:
+;     return (NULL);
+; Line 181
+	*** 000225	b8 00 00 		mov	ax,OFFSET 0
+	*** 000228	ba 00 00 		mov	dx,OFFSET 0
+	*** 00022b	e9 00 00 		jmp	L03355
+; }
+; Line 182
+; Line 182
+					L03355:
+	*** 00022e	5f 			pop	di
+	*** 00022f	5e 			pop	si
+	*** 000230	c9 			leave
+	*** 000231	ca 0a 00 		ret	OFFSET 10
+; Local Size: 40
+; 
+; 
+; #define MAX_TEST_PORTS	50
+; 
+; int	total_port;
+; int	irq_count;
+; int	port_no[MAX_TEST_PORTS];
+; 
+; /***************************************************************************/
+; /*									   */
+; /*  FUNCTION: test1(HWND)						   */
+; /*									   */
+; /*  PURPOSE:  get card info						   */
+; /*									   */
+; /***************************************************************************/
+; void	test1(HWND hWnd)
+; {
+; Line 199
+; hWnd = 0006
+					_test1:
+	*** 000234	55 			push	bp
+	*** 000235	8b ec 			mov	bp,sp
+	*** 000237	b8 00 00 		mov	ax,OFFSET L03423
+	*** 00023a	9a 00 00 00 00 		call	FAR PTR __aFchkstk
+	*** 00023f	56 			push	si
+	*** 000240	57 			push	di
+; j = fffc
+; t2 = fff8
+; buf = fbf8
+; j1 = fbf6
+; i = fbf4
+; t1 = fbf0
+; tmp = f7f0
+; total = f7ec
+;      
+; 
+;     
+; 	int	i, j = 1000, j1 = 1000;
+; Line 203
+	*** 000241	c7 46 fc e8 03 		mov	WORD PTR -4[bp],OFFSET 1000
+	*** 000246	c7 86 f6 fb e8 03 	mov	WORD PTR -1034[bp],OFFSET 1000
+; 	char	buf[1024], tmp[1024];
+; Line 204
+; 	long	total = 0;
+; Line 205
+	*** 00024c	c7 86 ec f7 00 00 	mov	WORD PTR -2068[bp],OFFSET 0
+	*** 000252	c7 86 ee f7 00 00 	mov	WORD PTR -2066[bp],OFFSET 0
+; 	unsigned	long	t1, t2;
+; Line 206
+; 
+; 	ScrollWindow(hWnd, 0, -300, NULL, NULL);
+; Line 208
+	*** 000258	ff 76 06 		push	WORD PTR 6[bp]
+	*** 00025b	6a 00 			push	OFFSET 0
+	*** 00025d	68 d4 fe 		push	OFFSET -300
+	*** 000260	6a 00 			push	OFFSET 0
+	*** 000262	6a 00 			push	OFFSET 0
+	*** 000264	6a 00 			push	OFFSET 0
+	*** 000266	6a 00 			push	OFFSET 0
+	*** 000268	9a 00 00 00 00 		call	FAR PTR ScrollWindow
+; 	UpdateWindow(hWnd);
+; Line 209
+	*** 00026d	ff 76 06 		push	WORD PTR 6[bp]
+	*** 000270	9a 00 00 00 00 		call	FAR PTR UpdateWindow
+; 	hDC = GetDC(hWnd);
+; Line 210
+	*** 000275	ff 76 06 		push	WORD PTR 6[bp]
+	*** 000278	9a 00 00 00 00 		call	FAR PTR GetDC
+	*** 00027d	a3 00 00 		mov	WORD PTR _hDC,ax
+; 	
+; 	strcpy(buf, "Esta es una prueba");
+; Line 212
+	*** 000280	68 00 00 		push	OFFSET L03388
+	*** 000283	8d 86 f8 fb 		lea	ax,WORD PTR -1032[bp]
+	*** 000287	50 			push	ax
+	*** 000288	9a 00 00 00 00 		call	FAR PTR _strcpy
+	*** 00028d	83 c4 04 		add	sp,OFFSET 4
+; 	//MSAWrite(buf, strlen(buf));
+; 	
+; 	
+; 		t1 = GetCurrentTime();
+; Line 216
+	*** 000290	9a 00 00 00 00 		call	FAR PTR GetCurrentTime
+	*** 000295	89 86 f0 fb 		mov	WORD PTR -1040[bp],ax
+	*** 000299	89 96 f2 fb 		mov	WORD PTR -1038[bp],dx
+; 		while ((i = MSARead(tmp, 1024)) == 0)
+; Line 217
+					L03390:
+	*** 00029d	8d 86 f0 f7 		lea	ax,WORD PTR -2064[bp]
+	*** 0002a1	8c d2 			mov	dx,ss
+	*** 0002a3	52 			push	dx
+	*** 0002a4	50 			push	ax
+	*** 0002a5	68 00 04 		push	OFFSET 1024
+	*** 0002a8	9a 00 00 00 00 		call	FAR PTR MSARead
+	*** 0002ad	89 86 f4 fb 		mov	WORD PTR -1036[bp],ax
+	*** 0002b1	3d 00 00 		cmp	ax,OFFSET 0
+	*** 0002b4	74 03 e9 00 00 		jne	L03391
+; 			if (((t2 = GetCurrentTime()) - t1) > 30000)
+; Line 218
+	*** 0002b9	9a 00 00 00 00 		call	FAR PTR GetCurrentTime
+	*** 0002be	89 46 f8 		mov	WORD PTR -8[bp],ax
+	*** 0002c1	89 56 fa 		mov	WORD PTR -6[bp],dx
+	*** 0002c4	2b 86 f0 fb 		sub	ax,WORD PTR -1040[bp]
+	*** 0002c8	1b 96 f2 fb 		sbb	dx,WORD PTR -1038[bp]
+	*** 0002cc	83 fa 00 		cmp	dx,OFFSET 0
+	*** 0002cf	73 03 e9 00 00 		jb	L03393
+	*** 0002d4	76 03 e9 00 00 		ja	L03424
+	*** 0002d9	3d 30 75 		cmp	ax,OFFSET 30000
+	*** 0002dc	77 03 e9 00 00 		jbe	L03393
+					L03424:
+; 				break;
+; Line 219
+	*** 0002e1	e9 00 00 		jmp	L03391
+; 		
+; 	t1 = MSAIsUnderRun(); 
+; Line 221
+					L03393:
+	*** 0002e4	e9 b6 ff 		jmp	L03390
+					L03391:
+	*** 0002e7	9a 00 00 00 00 		call	FAR PTR MSAIsUnderRun
+	*** 0002ec	89 86 f0 fb 		mov	WORD PTR -1040[bp],ax
+	*** 0002f0	89 96 f2 fb 		mov	WORD PTR -1038[bp],dx
+; 	
+; 	MessageBox(hWnd, tmp ,"ok", MB_OK); 
+; Line 223
+	*** 0002f4	ff 76 06 		push	WORD PTR 6[bp]
+	*** 0002f7	8d 86 f0 f7 		lea	ax,WORD PTR -2064[bp]
+	*** 0002fb	8c d2 			mov	dx,ss
+	*** 0002fd	52 			push	dx
+	*** 0002fe	50 			push	ax
+	*** 0002ff	b8 00 00 		mov	ax,OFFSET L03394
+	*** 000302	8c da 			mov	dx,ds
+	*** 000304	52 			push	dx
+	*** 000305	50 			push	ax
+	*** 000306	6a 00 			push	OFFSET 0
+	*** 000308	9a 00 00 00 00 		call	FAR PTR MessageBox
+; 	ReleaseDC(hWnd, hDC);
+; Line 224
+	*** 00030d	ff 76 06 		push	WORD PTR 6[bp]
+	*** 000310	ff 36 00 00 		push	WORD PTR _hDC
+	*** 000314	9a 00 00 00 00 		call	FAR PTR ReleaseDC
+; 		
+; 	
+; }
+; Line 227
+; Line 227
+					L03378:
+	*** 000319	5f 			pop	di
+	*** 00031a	5e 			pop	si
+	*** 00031b	c9 			leave
+	*** 00031c	cb 			ret	OFFSET 0
+; Local Size: 2068
+; 
+; void	test2(HWND hWnd)
+; {   	
+; Line 230
+; hWnd = 0006
+					_test2:
+	*** 00031e	55 			push	bp
+	*** 00031f	8b ec 			mov	bp,sp
+	*** 000321	b8 00 00 		mov	ax,OFFSET L03425
+	*** 000324	9a 00 00 00 00 		call	FAR PTR __aFchkstk
+	*** 000329	56 			push	si
+	*** 00032a	57 			push	di
+; pszKey = fffc
+; pszBuf = fffa
+; c = fff8
+; szVal = ffa8
+; hDC = ffa6
+; szMsg = ff56
+; cc = ff54
+; 	HDC	hDC;
+; Line 231
+;     
+; /*	int	i, j = 1000, j1 = 1000;
+; 	char	buf[1024], tmp[1024];
+; 	long	total = 0;
+; 	unsigned	long	t1, t2;
+; 
+; 	ScrollWindow(hWnd, 0, -300, NULL, NULL);
+; 	UpdateWindow(hWnd);
+; 	hDC = GetDC(hWnd);
+; 	buf[0] = j;
+; 	MSAWrite(buf, j--);
+; 	buf[0] = j;
+; 	MSAWrite(buf, j--);
+; 	while (j1 > 100) {
+; 		t1 = GetCurrentTime();
+; 		while ((i = MSARead(buf, 1024)) == 0)
+; 			if (((t2 = GetCurrentTime()) - t1) > 2000)
+; 				break;
+; 		buf[1] = j1;
+; 		if (i != j1 || buf[0] != buf[1])
+; 			break;
+; 		j1--;
+; 		buf[0] = j;
+; 		MSAWrite(buf, j--);
+; 	}
+; 	t1 = MSAIsUnderRun(); */
+; 	
+; 	int c, cc;
+; Line 259
+; 	PSTR pszBuf, pszKey;
+; Line 260
+; 	char szMsg[80], szVal[80];
+; Line 261
+; 
+; 	/* Allocate a buffer for the entries. */
+; 
+; 	pszBuf = (PSTR) LocalAlloc(LMEM_FIXED, 1024);
+; Line 265
+	*** 00032b	6a 00 			push	OFFSET 0
+	*** 00032d	68 00 04 		push	OFFSET 1024
+	*** 000330	9a 00 00 00 00 		call	FAR PTR LocalAlloc
+	*** 000335	89 46 fa 		mov	WORD PTR -6[bp],ax
+; 
+; 	/* Retrieve all the entries in the [windows] section. */
+; 
+; 	GetPrivateProfileString("GateWay", "Sleep", "10", szMsg, sizeof(szMsg),"C:\\windows\\c101.cnf");
+; Line 269
+	*** 000338	b8 00 00 		mov	ax,OFFSET L03408
+	*** 00033b	8c da 			mov	dx,ds
+	*** 00033d	52 			push	dx
+	*** 00033e	50 			push	ax
+	*** 00033f	b8 00 00 		mov	ax,OFFSET L03407
+	*** 000342	8c da 			mov	dx,ds
+	*** 000344	52 			push	dx
+	*** 000345	50 			push	ax
+	*** 000346	b8 00 00 		mov	ax,OFFSET L03406
+	*** 000349	8c da 			mov	dx,ds
+	*** 00034b	52 			push	dx
+	*** 00034c	50 			push	ax
+	*** 00034d	8d 86 56 ff 		lea	ax,WORD PTR -170[bp]
+	*** 000351	8c d2 			mov	dx,ss
+	*** 000353	52 			push	dx
+	*** 000354	50 			push	ax
+	*** 000355	6a 50 			push	OFFSET 80
+	*** 000357	b8 00 00 		mov	ax,OFFSET L03405
+	*** 00035a	8c da 			mov	dx,ds
+	*** 00035c	52 			push	dx
+	*** 00035d	50 			push	ax
+	*** 00035e	9a 00 00 00 00 		call	FAR PTR GetPrivateProfileString
+; 	
+; 	MessageBox(hWnd,szMsg,"",MB_OK);
+; Line 271
+	*** 000363	ff 76 06 		push	WORD PTR 6[bp]
+	*** 000366	8d 86 56 ff 		lea	ax,WORD PTR -170[bp]
+	*** 00036a	8c d2 			mov	dx,ss
+	*** 00036c	52 			push	dx
+	*** 00036d	50 			push	ax
+	*** 00036e	b8 00 00 		mov	ax,OFFSET L03409
+	*** 000371	8c da 			mov	dx,ds
+	*** 000373	52 			push	dx
+	*** 000374	50 			push	ax
+	*** 000375	6a 00 			push	OFFSET 0
+	*** 000377	9a 00 00 00 00 		call	FAR PTR MessageBox
+; 	
+; 
+; 
+; 	ReleaseDC(hWnd, hDC);
+; Line 275
+	*** 00037c	ff 76 06 		push	WORD PTR 6[bp]
+	*** 00037f	ff 76 a6 		push	WORD PTR -90[bp]
+	*** 000382	9a 00 00 00 00 		call	FAR PTR ReleaseDC
+; }
+; Line 276
+; Line 276
+					L03397:
+	*** 000387	5f 			pop	di
+	*** 000388	5e 			pop	si
+	*** 000389	c9 			leave
+	*** 00038a	cb 			ret	OFFSET 0
+; Local Size: 172
+;     
+; void GateWay(char wParam)
+; {
+; Line 279
+; wParam = 0006
+					_GateWay:
+	*** 00038c	55 			push	bp
+	*** 00038d	8b ec 			mov	bp,sp
+	*** 00038f	b8 00 00 		mov	ax,OFFSET L03426
+	*** 000392	9a 00 00 00 00 		call	FAR PTR __aFchkstk
+	*** 000397	56 			push	si
+	*** 000398	57 			push	di
+; 
+;    memset( szTemp, 0, TXQUEUE) ;
+; Line 281
+	*** 000399	68 00 10 		push	OFFSET 4096
+	*** 00039c	6a 00 			push	OFFSET 0
+	*** 00039e	68 00 00 		push	OFFSET _szTemp
+	*** 0003a1	9a 00 00 00 00 		call	FAR PTR _memset
+	*** 0003a6	83 c4 06 		add	sp,OFFSET 6
+;    *szTemp = wParam;
+; Line 282
+	*** 0003a9	8a 46 06 		mov	al,BYTE PTR 6[bp]
+	*** 0003ac	a2 00 00 		mov	BYTE PTR _szTemp,al
+;    //strcpy(szTemp, "Hola");
+;    WriteComm(COMDEV( npTTYInfo ),  (LPSTR) szTemp, strlen(szTemp));
+; Line 284
+	*** 0003af	8b 1e 00 00 		mov	bx,WORD PTR _npTTYInfo
+	*** 0003b3	ff 37 			push	WORD PTR [bx]
+	*** 0003b5	b8 00 00 		mov	ax,OFFSET _szTemp
+	*** 0003b8	8c da 			mov	dx,ds
+	*** 0003ba	52 			push	dx
+	*** 0003bb	50 			push	ax
+	*** 0003bc	68 00 00 		push	OFFSET _szTemp
+	*** 0003bf	9a 00 00 00 00 		call	FAR PTR _strlen
+	*** 0003c4	83 c4 02 		add	sp,OFFSET 2
+	*** 0003c7	50 			push	ax
+	*** 0003c8	9a 00 00 00 00 		call	FAR PTR WriteComm
+;    //SendMessage( hWnd, WM_COMMAND, (WPARAM) WM_DESTROY, 	NULL ) ;
+;   // _lwrite(hfTempFile, (LPSTR) szTemp, strlen(szTemp) );
+;    //DestroyWindow(hWnd);
+; }
+; Line 288
+; Line 288
+					L03412:
+	*** 0003cd	5f 			pop	di
+	*** 0003ce	5e 			pop	si
+	*** 0003cf	c9 			leave
+	*** 0003d0	cb 			ret	OFFSET 0
+; Local Size: 2
+; 
+; void GateWayLoop()
+; {
+; Line 291
+					_GateWayLoop:
+	*** 0003d2	55 			push	bp
+	*** 0003d3	8b ec 			mov	bp,sp
+	*** 0003d5	b8 00 00 		mov	ax,OFFSET L03427
+	*** 0003d8	9a 00 00 00 00 		call	FAR PTR __aFchkstk
+	*** 0003dd	56 			push	si
+	*** 0003de	57 			push	di
+; i = fffc
+; 
+;    int i;
+; Line 293
+;    //SendMessage( hWnd, WM_COMMAND, (WPARAM) WM_DESTROY, 	NULL ) ;
+;    //DestroyWindow(hWnd);
+;    
+;    
+;    	//	if (MSAIFrame())       
+;      
+;      if ((i = MSARead(szTemp, TXQUEUE)) != 0)
+; Line 300
+	*** 0003df	b8 00 00 		mov	ax,OFFSET _szTemp
+	*** 0003e2	8c da 			mov	dx,ds
+	*** 0003e4	52 			push	dx
+	*** 0003e5	50 			push	ax
+	*** 0003e6	68 00 10 		push	OFFSET 4096
+	*** 0003e9	9a 00 00 00 00 		call	FAR PTR MSARead
+	*** 0003ee	89 46 fc 		mov	WORD PTR -4[bp],ax
+	*** 0003f1	3d 00 00 		cmp	ax,OFFSET 0
+	*** 0003f4	75 03 e9 00 00 		je	L03417
+;         {
+; Line 301
+;  		
+;  	//	memset( szTemp, 0, TXQUEUE) ;
+;  	//	i = MSARead(szTemp, TXQUEUE);
+;  		WriteComm(COMDEV( npTTYInfo ),  (LPSTR) szTemp, strlen(szTemp));
+; Line 305
+	*** 0003f9	8b 1e 00 00 		mov	bx,WORD PTR _npTTYInfo
+	*** 0003fd	ff 37 			push	WORD PTR [bx]
+	*** 0003ff	b8 00 00 		mov	ax,OFFSET _szTemp
+	*** 000402	8c da 			mov	dx,ds
+	*** 000404	52 			push	dx
+	*** 000405	50 			push	ax
+	*** 000406	68 00 00 		push	OFFSET _szTemp
+	*** 000409	9a 00 00 00 00 		call	FAR PTR _strlen
+	*** 00040e	83 c4 02 		add	sp,OFFSET 2
+	*** 000411	50 			push	ax
+	*** 000412	9a 00 00 00 00 		call	FAR PTR WriteComm
+;  		_lwrite(hfTempFile, (LPSTR) szTemp, strlen(szTemp) );
+; Line 306
+	*** 000417	ff 36 00 00 		push	WORD PTR _hfTempFile
+	*** 00041b	b8 00 00 		mov	ax,OFFSET _szTemp
+	*** 00041e	8c da 			mov	dx,ds
+	*** 000420	52 			push	dx
+	*** 000421	50 			push	ax
+	*** 000422	68 00 00 		push	OFFSET _szTemp
+	*** 000425	9a 00 00 00 00 		call	FAR PTR _strlen
+	*** 00042a	83 c4 02 		add	sp,OFFSET 2
+	*** 00042d	50 			push	ax
+	*** 00042e	9a 00 00 00 00 		call	FAR PTR _lwrite
+;  		
+;  		//MSAFlush(0);
+; 
+;  		
+;  		}
+; Line 311
+; 
+;        
+; }; Line 314
+					L03417:
+; Line 314
+					L03415:
+	*** 000433	5f 			pop	di
+	*** 000434	5e 			pop	si
+	*** 000435	c9 			leave
+	*** 000436	cb 			ret	OFFSET 0
+; Local Size: 4

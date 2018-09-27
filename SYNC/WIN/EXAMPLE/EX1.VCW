@@ -1,0 +1,9 @@
+[MSVC Status File]
+Version=1.00
+ProjectType=0
+External=0
+BrkptCount=0
+WatchCount=3
+WatchExpr1=j
+WatchExpr2=i
+WatchExpr3=(int far *)t1

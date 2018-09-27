@@ -1,0 +1,33 @@
+
+CC=gcc -c
+ARCH=$(shell uname -m | sed s/i.86/i86/)
+
+ifeq	($(ARCH),i86)
+mno=$(shell ls /usr/src/linux/arch | cut -c2-4)
+OPTS=-DMODULE -D__KERNEL__ -DEXPORT_SYMTAB -Wall -Wstrict-prototypes -O2 \
+-fomit-frame-pointer -pipe -m$(mno) -I /usr/src/linux/include -DCPU=$(mno) -fno-strict-aliasing -fno-strength-reduce -DMODVERSIONS -include /usr/src/linux/include/linux/modversions.h
+else
+OPTS=-DMODULE -D__KERNEL__ -DEXPORT_SYMTAB -Wall -Wstrict-prototypes -O2 \
+-fomit-frame-pointer -pipe -I /usr/src/linux/include -fno-strict-aliasing -fno-strength-reduce -DMODVERSIONS -include /usr/src/linux/include/linux/modversions.h
+endif
+
+all: mxmain.o mxsync.o 
+
+mxmain.o: mxmain.c hd64570.h
+	$(CC) $(OPTS) mxmain.c
+
+mxsync.o: mxsync.c hd64570.h
+	$(CC) $(OPTS) mxsync.c
+
+install : 
+	cp -p mxmain.o /lib/modules/$(shell uname -r)/net/
+	cp -p mxsync.o /lib/modules/$(shell uname -r)/net/
+
+uninstall : 
+	rm -f /lib/modules/$(shell uname -r)/net/mxmain.o
+	rm -f /lib/modules/$(shell uname -r)/net/mxsync.o
+
+clean :
+	rm -f *.o
+
+dummy:

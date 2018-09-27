@@ -1,0 +1,39 @@
+#	Moxa Sync API Config file
+#	Keywork :
+#		BaseSeg, IRQ, Speed, ExtendBuf, TxCSource, RxCSource
+#
+#	Syntex:
+#		BaseSeg 	address_segment
+#		IRQ		irq_number
+#		Speed		speed
+#		PktSize 	max_packet_size (min 17 bytes)
+#		PktCnt		max_packet_count
+#		TxCSource	transmit_source
+#				include TxCIn, BG, RxCIn
+#				BG: internal baud rate generator
+#		RxCSource	receive_source
+#				include RxCIn, BG
+#		LoopMode	Local loopmode mode On/Off
+#	Exanple:
+#		BaseSeg 	0xC8000
+#		Speed		9600
+#		Speed		128K
+#		PktSize 	1024
+#		PktCnt		512
+#		TxCSource	TxCIn
+#		TxCSource	BG
+#		RxCSource	RxCIn
+#
+BaseSeg 	0xC8000
+IRQ		10
+Speed           9600
+PktSize 	1024
+PktCnt		10
+TxCSource       RxCIn
+RxCSource       BG
+LoopMode        Off
+
+[GateWay]
+Sleep=10
+
+

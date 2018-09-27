@@ -1,0 +1,287 @@
+
+			MOXA-C101 SuperSync
+		1 Port High Performance Sync/Async Card
+
+Introduction:
+=============
+
+	The MOXA-C101 is a high speed one port Sync/Async card equipped with
+	an HD64570 SCA and 256K Dual Ported RAM. The HD64570 SCA supports a
+	wide variety of protocols including Async, Byte Sync, Bit Sync (HDLC,
+	SDLC, X.25, etc.) The built-in 32 byte FIFO and Direct Memory Access
+	(DMA) controller help boost the speed. Data is received to (transmited
+	from) the large RAM by DMA to make higher performance with lower CPU
+	load.
+
+
+Features:
+=========
+
+	.Powerful serial communication adaptor, HD64570-10
+	.Multi-protocols supported including Async, Byte Sync, Bit Sync
+	.Built-in DMA for fast data transmission
+	.Built-in 32 byte FIFO for receive/transmit data
+	.Large data buffer: 256K bytes Dual Ported RAM
+	.16K memory window for the Dual Ported RAM
+	.Transmit clock direction (in or out) jumper selectable
+	.Communication interface (RS-232 or V.35) jumper selectable
+	.Async communication rate up to 128K bps
+	.Sync communication rate up to 7Mbps
+	.Support DOS/Windows environment
+	.Support MOXA API-Sync
+
+Specification:
+==============
+
+	.SCA		HD64570-10, 9.8304M clock
+
+	.RAM		256K Dual-Port RAM using 16K memory window
+
+	.RAM Address	Switch selectable (32 base addresses)
+			A23 A22 A21 A20   A19 A18 A17 A16   A15 A14
+			 x   x	 0   0	   1   1   0   x     x	 x
+			\_____________/   \_____________/   \_____/
+			       |		 |	       |
+			       0 (xx=00)	 C (x=0)       0 (xx=00)
+			       4 (xx=01)	 D (x=1)       4 (xx=01)
+			       8 (xx=10)		       8 (xx=10)
+			       C (xx=11)		       C (xx=11)
+
+			For example: A23 A22 .. ... A16  A15 A14
+				      0   0	     1	  1   0
+				     \________/ \_____/  \_____/
+			will select	  0	   D	    8	 (=0D8000H)
+
+			32 possible base addresses are listed below,
+
+			0C0000H, 0C4000H, 0C8000H, 0CC000H
+			0D0000H, 0D4000H, 0D8000H, 0DC000H
+			.
+			.
+			CC0000H, CC4000H, CC8000H, CCC000H
+			CD0000H, CD4000H, CD8000H, CDC000H
+
+	.IRQ		2, 3, 4, 5, 7, 10, 11, 12 or 15 jumper selectable
+
+	.Interface	RS-232 or V.35 jumper selectable
+
+	.TxC direction	in or out jumper selectable
+
+	.Drivers	DOS, Windows 3.1, Linux2.2.x PPP Driver
+
+	.API		DOS: C, Assembly; Windows: DLL
+
+	.Utilities	Setup, Scope, Diagnostics
+
+Application:
+============
+
+	.High speed Sync/Async MODEM communication
+	.ISDN MODEM/T1 DSU/CSU communication
+	.Long distance high speed communication
+
+
+			MOXA-C101 SuperSync
+		1 Port High Performance Sync/Async Card
+
+Programming note:
+=================
+
+	MOXA C101 Driver diskette consists of the following files/dir.:
+
+	\DOS			DOS driver and example directory
+	\DOS\DRIVER		DOS driver directory
+	\DOS\DRIVER\c101s.lib	DOS driver library for small model
+	\DOS\DRIVER\c101m.lib	DOS driver library for medium model
+	\DOS\DRIVER\c101.h	Driver declare file
+	\DOS\EXAMPLE		DOS driver example directory
+	\DOS\EXAMPLE\ex1.c	DOS driver example program
+	\DOS\EXAMPLE\c101.cnf	Driver configuration file
+
+	\WIN			Windows driver and example directory
+	\WIN\DRIVER		Windows driver directory
+	\WIN\DRIVER\msa.dll	Windows dll driver
+	\WIN\DRIVER\msa.lib	Windows library
+	\WIN\DRIVER\c101.h	Driver declare file
+	\WIN\EXAMPLE		Windows example directory
+	\WIN\EXAMPLE\ex1.c	Windows driver example program
+	\WIN\EXAMPLE\c101.cnf	Driver configuration file
+
+	\UTIL			Utility directory
+	\UTIL\c101diag		C101 diagnostic utility
+
+	\LINUX\makefile 	Linux compiler make file
+	\LINUX\mxmain.c 	Linux PPP driver main program
+	\LINUX\mxsync.c 	Linux PPP driver physical program
+	\LINUX\hd64570.h	Linux PPP driver include file
+	\LINUX\readme.txt	Linux PPP driver readme file
+
+	DOS users need to link C101 library to their application program,
+		c101s.lib for small model
+		c101m.lib for other models
+	Also, users have to specify the configuration value in the c101.cnf
+	and put it in the working directory. The c101.cnf will be read when
+	the driver initializing.
+
+	Windows user need to put msa.dll and c101.cnf to working directory.
+	Try to use example file to test first.
+
+
+
+			MOXA-C101 SuperSync
+		1 Port High Performance Sync/Async Card
+
+API Functions
+=============
+
+1)	SIO_INIT
+
+	Syntex: int	sio_init(void);
+
+	Description:
+		Initialize the SCA (Serial Communication Adaptor), prepare
+		irq, set up system variables, allocate system memory.
+		Read the c101.cnf file for I/O address, and IRQ select,...
+		(Please read the c101.cnf for more information.)
+		This function must be called before any other functions.
+
+	Return: 0	OK
+		-xx	error configuration file, please see "c101.h"
+
+
+2)	SIO_RESET
+
+	Syntex: int	sio_reset(void);
+
+	Description:
+		Reset the SCA to default setting specified in c101.cnf file.
+
+	Return: 0	OK
+
+
+3)	SIO_RELEASE
+
+	Syntex: void	sio_release(void);
+
+	Description:
+		Release IRQ channel, free system memory.
+
+	Return: None
+
+
+4)	SIO_READ
+
+	Syntex: int	sio_read(char far *buf, int len);
+
+	Description:
+		Read data from received buffer, The C101 have two receive
+		buffer, one is on board RAM (totally 180K), and the other
+		is determined by PktCnt in c101.cnf (totally PktCnt * PktSize).
+		buf:	data buffer for read received data
+		len:	data buffer maximum length
+
+	Return: n	received data frame length
+		-1	reserved buffer space not enough for received data
+
+
+5)	SIO_WRITE
+
+	Syntex: int	sio_write(char far *buf, int len);
+
+	Description:
+		Write data to transmit buffer, The C101 have 64K transmit
+		buffer on board.
+		buf:	data pointer for write to transmit buffer
+		len:	data length for write to transmit buffer
+
+	Return: n	data be write to transmit buffer, must = len
+		0	no room for transmit buffer
+		-1	len = 0 or len too large
+
+
+6)	SIO_FLUSH
+
+	Syntex: int	sio_flush(int mode);
+
+	Description:
+		Flush transmit and receive buffer
+		mode:	0: flush receive buffer
+			1: flush transmit buffer
+			2: flush both the receive and transmit buffer
+
+	Return: 0	OK
+
+
+7)	SIO_ISOVERRUN
+
+	Syntex: unsigned long	sio_isoverrun(void);
+
+	Description:
+		Get overrun frame count, and reset the count to 0, the
+		overrun frame only happen when receive buffer full.
+
+	Return: n	total overrun frame count
+
+
+8)	SIO_ISBADFRAME
+
+	Syntex: unsigned long	sio_isunderrun(void);
+
+	Description:
+		Get underrun frame count, and reset the count to 0, the
+		underrun frame only happen the SCA too busy.
+
+	Return: n	total underrun frame count
+
+
+9)	SIO_ISOVERRUN
+
+	Syntex: unsigned long	sio_isbadframe(void);
+
+	Description:
+		Get bad frame count, and reset the count to 0. Bad frame
+		include bad CRC, too large size frames.
+
+	Return: n	total bad frame count
+
+
+10)	SIO_IFRAME
+
+	Syntex: int	sio_iframe(void);
+
+	Description:
+		get received frame count in receive buffer
+
+	Return: n	total received frame count
+
+
+11)	SIO_OFRAME
+
+	Syntex: int	sio_oframe(void);
+
+	Description:
+		Get transmit frame count in transmit buffer.
+
+	Return: n	total transmit frame count
+
+
+12)	SIO_IFRAMEFREE
+
+	Syntex: int	sio_iframefree(void);
+
+	Description:
+		Get free frame count in the receive buffer.
+
+	Return: n	total receive buffer free frame count
+
+
+13)	SIO_OFRAMEFREE
+
+	Syntex: int	sio_oframefree(void);
+
+	Description:
+		Get free frame count in the transmit buffer.
+
+	Return: n	total transmit buffer free frame count
+
+

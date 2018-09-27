@@ -1,0 +1,25 @@
+#include "windows.h"
+#include "ex1.h"
+
+ExampleMenu MENU
+BEGIN
+    POPUP "&Type"
+    BEGIN
+	MENUITEM "Test&1", IDM_T1
+    END
+    POPUP "&Help"
+    BEGIN
+	MENUITEM "&About Example...", IDM_ABOUT
+    END
+END
+
+AboutBox DIALOG 22, 17, 144, 75
+STYLE DS_MODALFRAME | WS_CAPTION | WS_SYSMENU
+CAPTION "About Example"
+BEGIN
+    CTEXT "Microsoft Windows"     -1,       0,  5, 144,  8
+    CTEXT "MOXA Serial I/O Example"    -1,  0, 14, 144,  8
+    CTEXT "Version 3.0"           -1,       0, 34, 144,  8
+    DEFPUSHBUTTON "OK"          IDOK,      53, 59,  32, 14,      WS_GROUP
+END
+

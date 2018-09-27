@@ -1,0 +1,68 @@
+[version]
+;LayoutFile=layout.inf
+signature="$CHICAGO$"
+Class=Ports
+Provider=%MS%
+
+[DestinationDirs]
+DefaultDestDir = 11        ;LDID_SYS
+
+; Install class "Ports"
+;----------------------------------------------------------
+[ClassInstall]
+AddReg=PortsClass.AddReg
+
+[PortsClass.AddReg]
+HKR,,,,%PortsClassName%
+
+
+; Drivers
+;----------------------------------------------------------
+[Manufacturer]
+%Vendor%=Vendor
+
+[Vendor]
+%VendorModel.DeviceDesc% = ModelPort, COM5           ; Communications Port
+
+[Ports.AddReg]
+HKR,,NoSetupUI,,1
+
+
+; COM sections
+;----------------------------------------------------------
+
+[ModelPort]
+AddReg=ModelPort.AddReg
+CopyFiles=ModelPort.Copy
+LogConfig=cVendorModel
+
+[ModelPort.Copy]
+simon.vxd
+
+[ModelPort.AddReg]
+HKR,,DevLoader,,*vcomm
+HKR,,Enumerator,,serenum.vxd
+HKR,,PortDriver,,simon.vxd
+HKR,,ConfigDialog,,serialui.dll
+HKR,,DCB,3,1C,00,00,00, 80,25,00,00, 11,33,00,00, 00,00, 0a,00, 0a,00, 08,00, 00, 11, 13, 00, 00, 00
+HKR,,PortSubClass,1,01
+HKR,,EnumPropPages,,"serialui.dll,EnumPropPages"
+
+;[PCBITD.det]
+;AddReg=Ports.AddReg,DevMap.AddReg
+
+[cVendorModel]
+ConfigPriority=HARDRECONFIG
+IOConfig=8@100-ffff%fff8(3ff::)
+
+[DevMap.AddReg]
+HKLM,hardware\devicemap\serialcomm,COM5,,COM5
+
+; User readable strings
+;----------------------------------------------------------
+[Strings]
+MS  = "Microsoft"
+Std = "(Standard port types)"
+Vendor = "Vendor Corporation"
+PortsClassName = "Ports (COM & LPT)"
+VendorModel.DeviceDesc = "Virtual Serial Port"

@@ -1,0 +1,22 @@
+
+      The Virtual Serial Ports Driver (VSPD)
+      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      License for use
+      ~~~~~~~~~~~~~~~
+
+   1. All copyrights to BSPD are exclusively owned by the author
+      - Vitaliy Golubenko.
+
+   2. VSPD IS DISTRIBUTED "AS IS".  NO WARRANTY OF ANY
+      KIND IS EXPRESSED OR IMPLIED.  YOU USE AT YOUR OWN RISK.
+      THE AUTHOR WILL NOT BE LIABLE FOR DATA LOSS, DAMAGES, LOSS
+      OF PROFITS OR ANY OTHER KIND OF LOSS WHILE USING OR MISUSING
+      THIS SOFTWARE.
+
+   3. If you do not agree with the terms of this license you must remove
+      VSPD files from your storage devices and cease to use the product.
+
+      Thank you for using VSPD
+
+                                            Vitaliy Golubenko
+

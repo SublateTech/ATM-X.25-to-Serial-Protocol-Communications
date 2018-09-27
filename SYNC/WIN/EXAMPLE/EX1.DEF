@@ -1,0 +1,35 @@
+NAME	    Ex1
+
+DESCRIPTION 'MOXA Example of Windows Application'
+
+EXETYPE     WINDOWS
+
+STUB	    'WINSTUB.EXE'
+
+CODE	    PRELOAD MOVEABLE DISCARDABLE
+DATA	    PRELOAD MOVEABLE MULTIPLE
+
+HEAPSIZE    1024
+
+IMPORTS
+	MSAInit 	=	msa.1
+	MSAReset	=	msa.2
+	MSARead 	=	msa.3
+	MSAWrite	=	msa.4
+	MSAView 	=	msa.5
+	MSASkip 	=	msa.6
+	MSAFlush	=	msa.7
+	MSAIsOverRun	=	msa.8
+	MSAIsUnderRun	=	msa.9
+	MSAIsBadFrame	=	msa.10
+	MSAIFrame	=	msa.11
+	MSALOFrame	=	msa.12
+	MSAIFrameFree	=	msa.13
+	MSAOFrameFree	=	msa.14
+	MSALCtrl	=	msa.15
+	MSALStatus	=	msa.16
+	MSAEnd		=	msa.17
+
+EXPORTS
+	    MainWndProc      @1
+
